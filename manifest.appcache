@@ -1,0 +1,29 @@
+CACHE MANIFEST
+
+CACHE:
+
+#pages
+index.html
+
+#images
+img/bg.jpg
+
+#CSS
+css/style.css
+
+#scripts
+js/libs/jquery-1.7.1.min.js
+js/libs/modernizr-2.5.3.min.js
+js/plugins.js
+js/script.js
+
+FALLBACK:
+
+/ /offline.html
+
+NETWORK:
+*
+
+
+
+# Version: 1
