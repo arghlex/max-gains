@@ -7,6 +7,9 @@ Initially created for a final project on the Mobile Web Apps W3Dev Campus course
 
 The plan is to build on this initial idea and bring up to date with current technology.
 
+[View working demo](http://www.thewayofallthings.co.uk/max-gains/)
+
+
 Dependencies
 ------------
 
