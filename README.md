@@ -1,5 +1,5 @@
 Max Gains
----------
+=========
 
 A gym app for saving workout history.
 
@@ -8,14 +8,14 @@ Initially created for a final project on the Mobile Web Apps W3Dev Campus course
 The plan is to build on this initial idea and bring up to date with current technology.
 
 Dependencies
-============
+------------
 
 * Bootstrap
 * jQuery
 
 
 To do
-=====
+-----
 
 * ~~Add bootstrap~~
 * ~~Recode js~~
