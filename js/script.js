@@ -1,46 +1,80 @@
-if ( localStorage.getItem('count') === null || parseInt(localStorage.getItem('count')) === 0 ){
-	localStorage.setItem('count', '0');
-	count = parseInt(localStorage.getItem('count'));
-	var arr = [];
-	var foo = "";
-} else {
-	var arr = JSON.parse(localStorage.getItem('foo'));
-	var foo = localStorage.getItem('foo');
-	count = parseInt(localStorage.getItem('count'));
-	e1 = JSON.parse(localStorage.getItem('foo'));
-	for (var x = 0; x < count; x++) {
-		$('.tracker').append('<li>' + e1[x] + '</li>');
-	}
-}
-$('#save').click(function(e){
-	e.preventDefault();
-  	a1 = $('#exerciseVal').val();
-  	a2 = $('#weightVal').val();
-  	a3 = $('#repVal').val();
+var Max = (function(){
 
-	if ( a1 === "" || a2 === "" || a3 === "") {
-		alert('Please enter a value in all fields');
-	} else {
+	var pub = {
+		init: function(){
+			var opt = Gains.options;
 
-	c1 = '<span class="exName">' + a1 + '</span>' + ': ' + '<span class="reps">' + a3 + ' reps @ </span>' + '<span class="weight">' + a2 + '</span>';
-	arr.push(c1);
-	foo = JSON.stringify(arr);
-	localStorage.setItem('foo', foo);
-	$('#tracker').append('<li class="list-group-item">' + c1 + '</li>');
-	count++;
-	localStorage.setItem('count', count);
-	}
-});
-
-$('#reset').click(function(e){
-	e.preventDefault();
-	if ( count >= 1 ) {
-		if (confirm('Are you sure? This will clear all historical data.') === true) {
-			localStorage.clear('count');
-			count = localStorage.getItem('count');
-			$('#tracker').children().remove();
+			$(opt.form).on('submit', function(e){
+				var items = Gains.retrieveValues(opt.form);
+				Gains.render(items, opt.list);
+				e.preventDefault();
+			});
+			$(opt.reset).on('click', function(e){
+				Gains.clearAllData();
+				e.preventDefault();
+			});
 		}
-	} else {
-		alert('There is currently no saved data.');
-	}
+	};
+
+	var Gains = {
+		options: {
+			save: '#save',
+			reset: '#reset',
+			list: '#history',
+			form: '#entry'
+		},
+		init: function() {
+			var opt = this.options;
+			console.log(opt);
+			var that = this;
+			$(opt.form).on('submit', function(e){
+				var items = that.retrieveValues(opt.form);
+				that.render(items, opt.list);
+				e.preventDefault();
+			});
+			$(opt.reset).on('click', function(e){
+				that.clearAllData();
+				e.preventDefault();
+			});
+		},
+		clearLocalStorage: function() {
+			localStorage.clear('items');
+		},
+		clearHtml: function() {
+			$(this.options.list).children().remove();
+		},
+		clearAllData: function () {
+			this.clearLocalStorage();
+			this.clearHtml();
+		},
+		retrieveValues: function (formId) {
+			return $(formId).find('input[type="text"]')
+				.map(function(i, e){
+					return $(e).val();
+				});
+		},
+		construct: function (array) {
+			return '<span class="exName">' + array[0] + '</span>' + ': ' + '<span class="reps">' + array[1] + ' reps @ </span>' + '<span class="weight">' + array[2] + '</span>';
+		},
+		saveToLocalStorage: function (arr) {
+		  var items = [];
+		  if (localStorage.items) {
+		    items = JSON.parse(localStorage.items);
+		  }
+		  items.push(arr);
+		  localStorage.setItem('items', JSON.stringify(items));
+		},
+		render: function (array, listId) {
+			var html = '<li class="list-group-item">' + this.construct(array) + '</li>';
+			$(listId).append(html);
+			this.saveToLocalStorage(array);
+		}
+	};
+
+	return pub;
+
+})();
+
+$(document).ready(function(){
+		Max.init();
 });
