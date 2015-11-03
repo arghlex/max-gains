@@ -5,16 +5,14 @@ CACHE:
 #pages
 index.html
 
-#images
-img/bg.jpg
-
 #CSS
+bower_components/bootstrap/dist/css/bootstrap.min.css
 css/style.css
 
 #scripts
-js/libs/jquery-1.7.1.min.js
-js/libs/modernizr-2.5.3.min.js
-js/plugins.js
+bower_components/bootstrap/dist/js/bootstrap.min.js
+bower_components/jquery/dist/jquery.min.js
+bower_components/modernizr/modernizr.js
 js/script.js
 
 FALLBACK:
